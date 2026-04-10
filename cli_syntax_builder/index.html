@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cli_syntax_builder</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<h2>Cli Syntax Builder</h2>
+
+<label>Service (e.g. s3, ec2)</label>
+<input id="a" type="text">
+
+<label>Action (e.g. ls, describe-instances)</label>
+<input id="b" type="text">
+
+<label>Parameters (--key value)</label>
+<input id="c" type="text">
+
+<button onclick="generate()">Generate Command</button>
+
+<div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
