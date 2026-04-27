@@ -1,86 +1,1536 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<meta name="robots" content="index, follow">
 
-    <!-- 🔐 Google Site Verification -->
-    <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<title>AWS CLI Builder – Free AWS Command Generator &amp; Syntax Builder</title>
 
-    <!-- SEO Básico -->
-    <title>AWS CLI Tools – Command Generator & Syntax Builder</title>
-    <meta name="description" content="Free AWS CLI tools to generate commands and build correct syntax instantly. Improve productivity with AWS command generators and syntax builders.">
-    <meta name="keywords" content="aws cli command generator, aws cli syntax builder, aws command tool, aws cli helper, aws developer tools">
-    <meta name="author" content="AI Tools Suite">
+<meta name="description" content="Free AWS CLI builder. Select a service, subcommand and flags to generate ready-to-use AWS CLI commands instantly. Covers S3, EC2, IAM, Lambda, RDS, ECS, and more. No login required.">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="AWS CLI Tools – Command Generator & Syntax Builder">
-    <meta property="og:description" content="Generate AWS CLI commands and build correct syntax easily.">
-    <meta property="og:type" content="website">
+<meta name="keywords" content="aws cli builder, aws cli command generator, aws cli syntax builder, aws command line tools, aws cli tools, aws cli generator free, build aws cli command, aws cli helper, aws command generator">
 
-    <!-- Estilos -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #0f172a;
-            color: #e2e8f0;
-        }
-        h1 {
-            color: #38bdf8;
-        }
-        p {
-            max-width: 700px;
-            line-height: 1.6;
-        }
-        .tools {
-            margin-top: 30px;
-        }
-        .tool {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #1e293b;
-            border-radius: 10px;
-            transition: 0.2s;
-        }
-        .tool:hover {
-            background: #334155;
-        }
-        a {
-            text-decoration: none;
-            color: #22c55e;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        small {
-            display: block;
-            margin-top: 5px;
-            color: #94a3b8;
-        }
-    </style>
+<link rel="canonical" href="https://franrivalbigprojects.github.io/aws-cli-tools/">
+
+<meta property="og:title" content="AWS CLI Builder – Free AWS Command Generator">
+<meta property="og:description" content="Build AWS CLI commands step by step. Select service, subcommand, and flags to generate ready-to-run commands. Free, no login.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #04080f;
+  --surface: #070d18;
+  --surface2: #0b1220;
+  --border: #0f1c2e;
+  --border2: #162840;
+  --aws: #ff9900;
+  --aws-dim: rgba(255,153,0,0.1);
+  --aws-dim2: rgba(255,153,0,0.05);
+  --aws-glow: rgba(255,153,0,0.2);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+  --green-dim2: rgba(34,197,94,0.05);
+  --blue: #38bdf8;
+  --blue-dim: rgba(56,189,248,0.08);
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,0.08);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251,191,36,0.08);
+  --text: #b8cce0;
+  --text-muted: #3a5570;
+  --text-dim: #0f1e30;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --r: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+header {
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(4,8,15,0.96);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--aws);
+  background: var(--aws-dim2);
+  border: 1px solid rgba(255,153,0,0.3);
+  border-radius: 3px;
+  padding: 3px 9px;
+}
+
+.logo-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.logo-text strong { color: var(--aws); font-weight: 500; }
+
+.wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO */
+.hero {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aws);
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: clamp(22px, 3.2vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 em { font-style: normal; color: var(--aws); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.hero-sub strong { color: var(--text); }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.pill-aws { color: var(--aws); background: var(--aws-dim2); border-color: rgba(255,153,0,0.3); }
+.pill-dim { color: var(--text-muted); border-color: var(--border2); }
+
+/* TOOL SHELL */
+.tool-shell {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 0 40px rgba(255,153,0,0.04);
+}
+
+.tool-topbar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topbar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--aws);
+  box-shadow: 0 0 6px var(--aws-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.btn-sm {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid;
+  transition: opacity 0.15s;
+}
+
+.btn-sm:hover { opacity: 0.75; }
+.btn-aws   { background: var(--aws-dim2); color: var(--aws); border-color: rgba(255,153,0,0.3); }
+.btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border2); }
+.btn-green { background: var(--green-dim2); color: var(--green); border-color: rgba(34,197,94,0.25); }
+
+/* BUILDER LAYOUT */
+.builder-body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 520px;
+}
+
+.builder-left {
+  border-right: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 520px;
+}
+
+.panel-head {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface2);
+  position: sticky;
+  top: 0;
+}
+
+/* Service grid */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 12px;
+}
+
+.svc-btn {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.svc-btn:hover { border-color: rgba(255,153,0,0.3); background: var(--aws-dim2); }
+
+.svc-btn.active {
+  border-color: var(--aws);
+  background: var(--aws-dim);
+  box-shadow: 0 0 10px rgba(255,153,0,0.1);
+}
+
+.svc-icon { font-size: 18px; display: block; margin-bottom: 3px; }
+
+.svc-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+}
+
+.svc-btn.active .svc-name { color: var(--aws); }
+
+/* Builder right */
+.builder-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.cmd-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.cmd-section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmd-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+/* Subcommand select */
+.cmd-select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 9px 11px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+}
+
+.cmd-select:focus { outline: none; border-color: rgba(255,153,0,0.35); }
+.cmd-select option { background: #0b1220; }
+
+/* Flags area */
+.flags-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.flag-item { display: flex; flex-direction: column; gap: 4px; }
+
+.flag-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flag-required {
+  font-size: 9px;
+  color: var(--red);
+  background: var(--red-dim);
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
+.flag-optional {
+  font-size: 9px;
+  color: var(--text-dim);
+  background: var(--surface2);
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
+.flag-input {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 7px 9px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.flag-input:focus { outline: none; border-color: rgba(255,153,0,0.3); }
+.flag-input::placeholder { color: var(--text-dim); }
+
+/* Output */
+.output-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.output-wrap {
+  flex: 1;
+  background: var(--bg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cmd-output {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--aws);
+  border-radius: 5px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--aws);
+  line-height: 1.8;
+  word-break: break-all;
+  white-space: pre-wrap;
+  min-height: 80px;
+  position: relative;
+}
+
+.cmd-placeholder {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.cmd-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 4px 0;
+}
+
+.output-footer {
+  border-top: 1px solid var(--border2);
+  padding: 10px 16px;
+  background: var(--surface2);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-build {
+  padding: 10px 26px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--aws);
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: opacity 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 16px rgba(255,153,0,0.25);
+}
+
+.btn-build:hover { opacity: 0.87; box-shadow: 0 0 26px rgba(255,153,0,0.4); }
+
+.copy-btn {
+  padding: 9px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--green-dim2);
+  color: var(--green);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.copy-btn:hover { opacity: 0.75; }
+
+/* HISTORY */
+.history-section {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.history-head {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+  padding: 8px 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+#historyList { max-height: 160px; overflow-y: auto; }
+
+.hist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border2);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.hist-item:last-child { border-bottom: none; }
+.hist-item:hover { background: var(--aws-dim2); }
+
+.hist-cmd {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hist-svc {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--aws);
+  flex-shrink: 0;
+}
+
+/* DIVIDER + CONTENT */
+hr.divider { border: none; border-top: 1px solid var(--border2); margin: 48px 0; }
+
+.content-section { margin-bottom: 48px; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--aws);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.sec-rule { flex: 1; height: 1px; background: var(--border2); }
+
+p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 10px; }
+p strong { color: var(--text); }
+
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface2);
+  color: var(--aws);
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+}
+
+.cheat-table {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr;
+  border-bottom: 1px solid var(--border2);
+}
+
+.ct-row:last-child { border-bottom: none; }
+.ct-row.ct-head { background: var(--surface2); }
+
+.ct-cell {
+  padding: 9px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  border-right: 1px solid var(--border2);
+}
+
+.ct-cell:last-child { border-right: none; }
+.ct-head .ct-cell { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+.ct-cmd { color: var(--aws); }
+
+.dense-block {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-top: 14px;
+}
+
+.dense-block p { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border2); }
+.dense-block p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.faq-list {
+  margin-top: 14px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.faq-item { border-bottom: 1px solid var(--border2); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--sans);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.faq-q:hover { background: var(--aws-dim2); }
+.faq-arrow { font-family: var(--mono); font-size: 11px; color: var(--text-dim); transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+.faq-a {
+  display: none;
+  padding: 0 18px 13px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  border-top: 1px solid var(--border2);
+  background: var(--bg);
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-a code { font-family: var(--mono); font-size: 11px; color: var(--aws); background: var(--aws-dim2); border-radius: 3px; padding: 1px 5px; }
+
+.other-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.otl {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s;
+}
+
+.otl:hover { border-color: rgba(255,153,0,0.3); }
+.otl-eye { font-family: var(--mono); font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+.otl-name { font-family: var(--mono); font-size: 12px; color: var(--aws); font-weight: 500; }
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 48px; }
+
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 4px 12px;
+  cursor: default;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tag:hover { color: var(--aws); border-color: rgba(255,153,0,0.3); }
+
+footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+
+.footer-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 0; }
+
+@media (max-width: 700px) {
+  .builder-body { grid-template-columns: 1fr; }
+  .builder-left { border-right: none; border-bottom: 1px solid var(--border2); max-height: 280px; }
+  .service-grid { grid-template-columns: repeat(4, 1fr); }
+  .flags-grid { grid-template-columns: 1fr; }
+  .ct-row { grid-template-columns: 100px 1fr 1fr; font-size: 10px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AWS CLI Builder",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free AWS CLI builder. Select AWS service, subcommand, and flags to generate ready-to-use AWS CLI commands instantly. Covers S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation, and more. No install or login required.",
+  "featureList": "AWS CLI command generation, S3 commands, EC2 commands, IAM commands, Lambda commands, RDS commands, ECS commands, CloudFormation commands, command history, copy to clipboard"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an AWS CLI builder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AWS CLI builder is a tool that helps you construct AWS CLI commands by selecting the service, subcommand, and required flags through a visual interface instead of memorizing command syntax. It generates the correct aws command string ready to paste into your terminal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use the AWS CLI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Install the AWS CLI with pip install awscli or download from aws.amazon.com/cli. Configure with aws configure (enter Access Key ID, Secret Access Key, region, output format). Then run commands like aws s3 ls, aws ec2 describe-instances, or aws iam list-users. Use --profile to switch between named profiles and --region to override the default region per command."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What AWS CLI tools are available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key AWS CLI tools: AWS CLI v2 (official command-line interface), AWS Shell (autocomplete shell for AWS CLI), aws-vault (securely store and access AWS credentials), Steampipe (SQL queries over AWS resources), awslogs (stream CloudWatch logs), and this builder for generating commands visually."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
+
 <body>
 
-    <h1>AWS CLI Tools</h1>
+<header>
+  <div class="header-inner">
+    <span class="logo-pill">CLI</span>
+    <span class="logo-text"><strong>aws-cli</strong>-builder</span>
+  </div>
+</header>
 
-    <p>
-        Simplify your workflow with AWS CLI tools designed for developers and DevOps engineers.
-        Generate commands instantly and build correct AWS CLI syntax without errors.
+<div class="wrapper">
+
+  <section class="hero">
+    <p class="hero-eyebrow">// Free AWS Developer Tool</p>
+    <h1><em>AWS CLI Builder</em> &mdash;<br>Command Generator &amp; Syntax Tool</h1>
+    <p class="hero-sub">
+      Select a <strong>service, subcommand, and flags</strong> to build ready-to-run AWS CLI commands instantly. No AWS account needed — paste into your terminal.
     </p>
-
-    <div class="tools">
-
-        <div class="tool">
-            <a href="cli_command_generator_aws/">AWS CLI Command Generator</a>
-            <small>Create ready-to-use AWS CLI commands based on your configuration.</small>
-        </div>
-
-        <div class="tool">
-            <a href="cli_syntax_builder/">AWS CLI Syntax Builder</a>
-            <small>Build and validate AWS CLI syntax step-by-step with ease.</small>
-        </div>
-
+    <div class="pill-row">
+      <span class="pill pill-aws">S3 · EC2 · IAM</span>
+      <span class="pill pill-aws">Lambda · RDS · ECS</span>
+      <span class="pill pill-dim">Command History</span>
+      <span class="pill pill-dim">Copy to Clipboard</span>
+      <span class="pill pill-dim">Free · No login</span>
     </div>
+  </section>
+
+  <!-- BUILDER TOOL -->
+
+  <div class="tool-shell">
+    <div class="tool-topbar">
+      <div class="topbar-label">
+        <span class="topbar-dot"></span>
+        AWS CLI Command Builder
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-sm btn-green" onclick="loadExample()">Example</button>
+        <button class="btn-sm btn-ghost" onclick="resetBuilder()">Reset</button>
+      </div>
+    </div>
+
+
+<div class="builder-body">
+
+  <!-- Service selector -->
+  <div class="builder-left">
+    <div class="panel-head">// Select AWS Service</div>
+    <div class="service-grid" id="serviceGrid"></div>
+  </div>
+
+  <!-- Command builder -->
+  <div class="builder-right">
+
+    <div class="cmd-section">
+      <div class="cmd-section-label">Subcommand</div>
+      <select class="cmd-select" id="subcmdSelect" onchange="onSubcmdChange()">
+        <option value="">-- Select a service first --</option>
+      </select>
+    </div>
+
+    <div class="cmd-section" id="flagsSection" style="display:none;">
+      <div class="cmd-section-label">Flags</div>
+      <div class="flags-grid" id="flagsGrid"></div>
+    </div>
+
+    <div class="output-section">
+      <div class="panel-head">// Generated Command</div>
+      <div class="output-wrap">
+        <div class="cmd-output" id="cmdOutput">
+          <span class="cmd-placeholder">Select a service and subcommand to build your AWS CLI command...</span>
+        </div>
+        <div class="cmd-note" id="cmdNote"></div>
+      </div>
+      <div class="output-footer">
+        <button class="btn-build" onclick="buildCommand()">Build Command</button>
+        <button class="copy-btn" onclick="copyCommand()">Copy</button>
+        <span id="copyFb" style="font-family:var(--mono);font-size:11px;color:var(--green);display:none;">Copied!</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- HISTORY -->
+
+  <div class="history-section">
+    <div class="history-head">
+      <span>Command History</span>
+      <span id="histCount" style="color:var(--text-dim);">0 commands</span>
+    </div>
+    <div id="historyList">
+      <div style="padding:12px 16px;font-family:var(--mono);font-size:11px;color:var(--text-dim);">Built commands will appear here.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CHEAT SHEET -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">AWS CLI Cheat Sheet</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="cheat-table">
+      <div class="ct-row ct-head">
+        <div class="ct-cell">Service</div>
+        <div class="ct-cell">Command</div>
+        <div class="ct-cell">Description</div>
+      </div>
+      <div class="ct-row"><div class="ct-cell">S3</div><div class="ct-cell ct-cmd">aws s3 ls s3://bucket</div><div class="ct-cell">List objects in bucket</div></div>
+      <div class="ct-row"><div class="ct-cell">S3</div><div class="ct-cell ct-cmd">aws s3 cp file.txt s3://bucket/</div><div class="ct-cell">Upload file to S3</div></div>
+      <div class="ct-row"><div class="ct-cell">S3</div><div class="ct-cell ct-cmd">aws s3 sync ./dir s3://bucket/</div><div class="ct-cell">Sync directory to S3</div></div>
+      <div class="ct-row"><div class="ct-cell">EC2</div><div class="ct-cell ct-cmd">aws ec2 describe-instances</div><div class="ct-cell">List all EC2 instances</div></div>
+      <div class="ct-row"><div class="ct-cell">EC2</div><div class="ct-cell ct-cmd">aws ec2 start-instances --instance-ids i-xxx</div><div class="ct-cell">Start instance</div></div>
+      <div class="ct-row"><div class="ct-cell">IAM</div><div class="ct-cell ct-cmd">aws iam list-users</div><div class="ct-cell">List all IAM users</div></div>
+      <div class="ct-row"><div class="ct-cell">IAM</div><div class="ct-cell ct-cmd">aws iam get-user --user-name alice</div><div class="ct-cell">Get user details</div></div>
+      <div class="ct-row"><div class="ct-cell">Lambda</div><div class="ct-cell ct-cmd">aws lambda list-functions</div><div class="ct-cell">List Lambda functions</div></div>
+      <div class="ct-row"><div class="ct-cell">Lambda</div><div class="ct-cell ct-cmd">aws lambda invoke --function-name fn out.json</div><div class="ct-cell">Invoke function</div></div>
+      <div class="ct-row"><div class="ct-cell">CloudFormation</div><div class="ct-cell ct-cmd">aws cloudformation list-stacks</div><div class="ct-cell">List stacks</div></div>
+    </div>
+  </section>
+
+  <!-- QUICK TIPS -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">AWS CLI Tips</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="dense-block">
+      <p><strong>Use --output to change the response format</strong><br>
+      <code>--output json</code> (default), <code>--output table</code> for human-readable output, <code>--output text</code> for piping to shell scripts. Add <code>--query</code> with JMESPath to filter output: <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --output text</code></p>
+      <p><strong>Use --profile to switch between AWS accounts</strong><br>
+      Configure named profiles with <code>aws configure --profile myprofile</code>. Use with <code>aws s3 ls --profile myprofile</code>. Set a default profile with the <code>AWS_PROFILE</code> environment variable. Use <code>aws sts get-caller-identity</code> to verify which account and role you are currently using.</p>
+      <p><strong>Use --dry-run to test destructive commands</strong><br>
+      EC2 commands support <code>--dry-run</code> to validate permissions without executing. <code>aws ec2 terminate-instances --instance-ids i-xxx --dry-run</code> returns a DryRunOperation error if the command would succeed, or an UnauthorizedOperation error if permissions are missing.</p>
+      <p><strong>Paginate large result sets automatically</strong><br>
+      Add <code>--no-paginate</code> to get all results at once. Or use <code>--page-size</code> and <code>--max-items</code> for manual pagination. The CLI v2 paginates automatically by default for commands like <code>aws s3api list-objects</code>. Use <code>--starting-token</code> with the <code>NextToken</code> value for manual page navigation.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">FAQ</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the AWS CLI?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">The AWS Command Line Interface (AWS CLI) is an open source tool that enables you to interact with AWS services using commands in your terminal. AWS CLI v2 is the current version, available for Windows, macOS, and Linux. Configure it with <code>aws configure</code> and use commands like <code>aws s3 ls</code>, <code>aws ec2 describe-instances</code>, or <code>aws lambda list-functions</code>.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I install and configure the AWS CLI?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Download from aws.amazon.com/cli or install with <code>pip install awscli</code>. Run <code>aws configure</code> and enter your Access Key ID, Secret Access Key, default region (e.g. us-east-1), and output format (json). Credentials are stored in <code>~/.aws/credentials</code>. Use <code>aws sts get-caller-identity</code> to verify the configuration worked.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What AWS CLI tools and helpers are available?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Popular AWS CLI tools: <strong>aws-shell</strong> — interactive CLI with autocomplete. <strong>aws-vault</strong> — secure credential storage. <strong>awslogs</strong> — stream CloudWatch logs. <strong>Steampipe</strong> — SQL queries over AWS resources. <strong>cfn-lint</strong> — CloudFormation template linter. This builder generates commands visually without memorizing syntax.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I use --query to filter AWS CLI output?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a"><code>--query</code> uses JMESPath syntax. Examples: <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name]' --output table</code> lists instance IDs and states. <code>aws s3api list-buckets --query 'Buckets[*].Name' --output text</code> lists bucket names. Use <code>--output text</code> for shell script piping.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTHER TOOLS -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">More Tools</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="other-tools">
+      <a href="cli_command_generator_aws/" class="otl">
+        <p class="otl-eye">generator //</p>
+        <span class="otl-name">CLI Command Generator</span>
+      </a>
+      <a href="cli_syntax_builder/" class="otl">
+        <p class="otl-eye">syntax //</p>
+        <span class="otl-name">CLI Syntax Builder</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="tag-cloud">
+    <span class="tag">aws cli builder</span>
+    <span class="tag">aws cli command generator</span>
+    <span class="tag">aws cli syntax builder</span>
+    <span class="tag">aws cli tools</span>
+    <span class="tag">aws command line tools</span>
+    <span class="tag">build aws cli command</span>
+    <span class="tag">aws cli helper online</span>
+    <span class="tag">aws s3 cli commands</span>
+    <span class="tag">aws ec2 cli commands</span>
+    <span class="tag">aws iam cli commands</span>
+    <span class="tag">aws lambda cli commands</span>
+    <span class="tag">aws cli --query examples</span>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>aws-cli-builder &middot; command generator &middot; free &middot; no login</p>
+    <p>s3 &middot; ec2 &middot; iam &middot; lambda &middot; rds &middot; ecs &middot; cloudformation</p>
+  </div>
+</footer>
+
+<script>
+// ─── SERVICE + COMMAND DATA ───
+var SERVICES = {
+  s3: {
+    icon: '&#x1F5C4;',
+    label: 'S3',
+    cmds: {
+      'ls': {
+        desc: 'List buckets or objects',
+        flags: [
+          { name: '--bucket', placeholder: 's3://my-bucket', label: 'Bucket URI', required: false },
+          { name: '--recursive', placeholder: '', label: 'Recursive', required: false, isFlag: true },
+          { name: '--human-readable', placeholder: '', label: 'Human readable', required: false, isFlag: true }
+        ]
+      },
+      'cp': {
+        desc: 'Copy file to/from S3',
+        flags: [
+          { name: 'source', placeholder: 'file.txt or s3://bucket/key', label: 'Source', required: true },
+          { name: 'dest', placeholder: 's3://bucket/ or ./local/', label: 'Destination', required: true },
+          { name: '--recursive', placeholder: '', label: 'Recursive', required: false, isFlag: true },
+          { name: '--acl', placeholder: 'private', label: '--acl', required: false }
+        ]
+      },
+      'sync': {
+        desc: 'Sync directory to/from S3',
+        flags: [
+          { name: 'source', placeholder: './dist', label: 'Source dir', required: true },
+          { name: 'dest', placeholder: 's3://my-bucket/', label: 'Destination', required: true },
+          { name: '--delete', placeholder: '', label: 'Delete removed', required: false, isFlag: true },
+          { name: '--exclude', placeholder: '*.log', label: '--exclude', required: false }
+        ]
+      },
+      'rm': {
+        desc: 'Remove objects from S3',
+        flags: [
+          { name: 'target', placeholder: 's3://my-bucket/file.txt', label: 'Target', required: true },
+          { name: '--recursive', placeholder: '', label: 'Recursive', required: false, isFlag: true }
+        ]
+      },
+      'mb': {
+        desc: 'Create a new S3 bucket',
+        flags: [
+          { name: 'bucket', placeholder: 's3://my-new-bucket', label: 'Bucket URI', required: true },
+          { name: '--region', placeholder: 'us-east-1', label: '--region', required: false }
+        ]
+      }
+    }
+  },
+  ec2: {
+    icon: '&#x1F5A5;',
+    label: 'EC2',
+    cmds: {
+      'describe-instances': {
+        desc: 'List EC2 instances',
+        flags: [
+          { name: '--instance-ids', placeholder: 'i-0abc1234 i-0xyz5678', label: '--instance-ids', required: false },
+          { name: '--filters', placeholder: 'Name=instance-state-name,Values=running', label: '--filters', required: false },
+          { name: '--region', placeholder: 'us-east-1', label: '--region', required: false }
+        ]
+      },
+      'start-instances': {
+        desc: 'Start stopped instances',
+        flags: [
+          { name: '--instance-ids', placeholder: 'i-0abc1234', label: '--instance-ids', required: true },
+          { name: '--dry-run', placeholder: '', label: 'Dry run', required: false, isFlag: true }
+        ]
+      },
+      'stop-instances': {
+        desc: 'Stop running instances',
+        flags: [
+          { name: '--instance-ids', placeholder: 'i-0abc1234', label: '--instance-ids', required: true },
+          { name: '--force', placeholder: '', label: 'Force stop', required: false, isFlag: true }
+        ]
+      },
+      'terminate-instances': {
+        desc: 'Terminate instances permanently',
+        flags: [
+          { name: '--instance-ids', placeholder: 'i-0abc1234', label: '--instance-ids', required: true },
+          { name: '--dry-run', placeholder: '', label: 'Dry run', required: false, isFlag: true }
+        ]
+      },
+      'describe-security-groups': {
+        desc: 'List security groups',
+        flags: [
+          { name: '--group-ids', placeholder: 'sg-0abc1234', label: '--group-ids', required: false },
+          { name: '--filters', placeholder: 'Name=vpc-id,Values=vpc-xxx', label: '--filters', required: false }
+        ]
+      }
+    }
+  },
+  iam: {
+    icon: '&#x1F512;',
+    label: 'IAM',
+    cmds: {
+      'list-users': {
+        desc: 'List all IAM users',
+        flags: [
+          { name: '--max-items', placeholder: '100', label: '--max-items', required: false },
+          { name: '--path-prefix', placeholder: '/division/', label: '--path-prefix', required: false }
+        ]
+      },
+      'get-user': {
+        desc: 'Get details of a user',
+        flags: [
+          { name: '--user-name', placeholder: 'alice', label: '--user-name', required: false }
+        ]
+      },
+      'create-user': {
+        desc: 'Create a new IAM user',
+        flags: [
+          { name: '--user-name', placeholder: 'new-user', label: '--user-name', required: true },
+          { name: '--path', placeholder: '/team/', label: '--path', required: false },
+          { name: '--tags', placeholder: 'Key=Env,Value=prod', label: '--tags', required: false }
+        ]
+      },
+      'list-roles': {
+        desc: 'List IAM roles',
+        flags: [
+          { name: '--path-prefix', placeholder: '/service-role/', label: '--path-prefix', required: false },
+          { name: '--max-items', placeholder: '50', label: '--max-items', required: false }
+        ]
+      },
+      'attach-user-policy': {
+        desc: 'Attach managed policy to user',
+        flags: [
+          { name: '--user-name', placeholder: 'alice', label: '--user-name', required: true },
+          { name: '--policy-arn', placeholder: 'arn:aws:iam::aws:policy/ReadOnlyAccess', label: '--policy-arn', required: true }
+        ]
+      }
+    }
+  },
+  lambda: {
+    icon: '&#x03BB;',
+    label: 'Lambda',
+    cmds: {
+      'list-functions': {
+        desc: 'List Lambda functions',
+        flags: [
+          { name: '--max-items', placeholder: '50', label: '--max-items', required: false },
+          { name: '--function-version', placeholder: 'ALL', label: '--function-version', required: false }
+        ]
+      },
+      'invoke': {
+        desc: 'Invoke a Lambda function',
+        flags: [
+          { name: '--function-name', placeholder: 'my-function', label: '--function-name', required: true },
+          { name: '--payload', placeholder: '{"key":"value"}', label: '--payload', required: false },
+          { name: 'outfile', placeholder: 'response.json', label: 'Output file', required: true }
+        ]
+      },
+      'get-function': {
+        desc: 'Get function configuration',
+        flags: [
+          { name: '--function-name', placeholder: 'my-function', label: '--function-name', required: true },
+          { name: '--qualifier', placeholder: '$LATEST', label: '--qualifier', required: false }
+        ]
+      },
+      'update-function-code': {
+        desc: 'Update function code from zip',
+        flags: [
+          { name: '--function-name', placeholder: 'my-function', label: '--function-name', required: true },
+          { name: '--zip-file', placeholder: 'fileb://function.zip', label: '--zip-file', required: false },
+          { name: '--s3-bucket', placeholder: 'my-deploy-bucket', label: '--s3-bucket', required: false },
+          { name: '--s3-key', placeholder: 'function.zip', label: '--s3-key', required: false }
+        ]
+      }
+    }
+  },
+  rds: {
+    icon: '&#x1F5C3;',
+    label: 'RDS',
+    cmds: {
+      'describe-db-instances': {
+        desc: 'List RDS instances',
+        flags: [
+          { name: '--db-instance-identifier', placeholder: 'my-db', label: '--db-instance-id', required: false },
+          { name: '--filters', placeholder: 'Name=engine,Values=mysql', label: '--filters', required: false }
+        ]
+      },
+      'start-db-instance': {
+        desc: 'Start a stopped RDS instance',
+        flags: [
+          { name: '--db-instance-identifier', placeholder: 'my-db', label: '--db-instance-id', required: true }
+        ]
+      },
+      'stop-db-instance': {
+        desc: 'Stop an RDS instance',
+        flags: [
+          { name: '--db-instance-identifier', placeholder: 'my-db', label: '--db-instance-id', required: true }
+        ]
+      },
+      'create-db-snapshot': {
+        desc: 'Create a manual snapshot',
+        flags: [
+          { name: '--db-instance-identifier', placeholder: 'my-db', label: '--db-instance-id', required: true },
+          { name: '--db-snapshot-identifier', placeholder: 'my-db-snap-2025', label: '--snapshot-id', required: true }
+        ]
+      }
+    }
+  },
+  ecs: {
+    icon: '&#x1F433;',
+    label: 'ECS',
+    cmds: {
+      'list-clusters': {
+        desc: 'List ECS clusters',
+        flags: [
+          { name: '--max-results', placeholder: '10', label: '--max-results', required: false }
+        ]
+      },
+      'list-tasks': {
+        desc: 'List running tasks',
+        flags: [
+          { name: '--cluster', placeholder: 'my-cluster', label: '--cluster', required: false },
+          { name: '--desired-status', placeholder: 'RUNNING', label: '--desired-status', required: false },
+          { name: '--service-name', placeholder: 'my-service', label: '--service-name', required: false }
+        ]
+      },
+      'describe-services': {
+        desc: 'Get service details',
+        flags: [
+          { name: '--cluster', placeholder: 'my-cluster', label: '--cluster', required: true },
+          { name: '--services', placeholder: 'my-service', label: '--services', required: true }
+        ]
+      },
+      'update-service': {
+        desc: 'Update service task count',
+        flags: [
+          { name: '--cluster', placeholder: 'my-cluster', label: '--cluster', required: true },
+          { name: '--service', placeholder: 'my-service', label: '--service', required: true },
+          { name: '--desired-count', placeholder: '3', label: '--desired-count', required: false },
+          { name: '--force-new-deployment', placeholder: '', label: 'Force deploy', required: false, isFlag: true }
+        ]
+      }
+    }
+  },
+  cloudformation: {
+    icon: '&#x1F4CB;',
+    label: 'CFN',
+    cmds: {
+      'list-stacks': {
+        desc: 'List CloudFormation stacks',
+        flags: [
+          { name: '--stack-status-filter', placeholder: 'CREATE_COMPLETE UPDATE_COMPLETE', label: '--status-filter', required: false }
+        ]
+      },
+      'describe-stacks': {
+        desc: 'Get stack details',
+        flags: [
+          { name: '--stack-name', placeholder: 'my-stack', label: '--stack-name', required: false }
+        ]
+      },
+      'deploy': {
+        desc: 'Deploy a template',
+        flags: [
+          { name: '--template-file', placeholder: 'template.yaml', label: '--template-file', required: true },
+          { name: '--stack-name', placeholder: 'my-stack', label: '--stack-name', required: true },
+          { name: '--capabilities', placeholder: 'CAPABILITY_IAM', label: '--capabilities', required: false },
+          { name: '--parameter-overrides', placeholder: 'Env=prod', label: '--parameter-overrides', required: false }
+        ]
+      },
+      'delete-stack': {
+        desc: 'Delete a stack',
+        flags: [
+          { name: '--stack-name', placeholder: 'my-stack', label: '--stack-name', required: true }
+        ]
+      }
+    }
+  },
+  sts: {
+    icon: '&#x1F464;',
+    label: 'STS',
+    cmds: {
+      'get-caller-identity': {
+        desc: 'Get current identity',
+        flags: []
+      },
+      'assume-role': {
+        desc: 'Assume an IAM role',
+        flags: [
+          { name: '--role-arn', placeholder: 'arn:aws:iam::123456789012:role/MyRole', label: '--role-arn', required: true },
+          { name: '--role-session-name', placeholder: 'my-session', label: '--session-name', required: true },
+          { name: '--duration-seconds', placeholder: '3600', label: '--duration', required: false }
+        ]
+      }
+    }
+  }
+};
+
+var activeSvc = null;
+var history = [];
+
+// ─── INIT ───
+function init() {
+  var grid = document.getElementById('serviceGrid');
+  Object.keys(SERVICES).forEach(function(svcKey) {
+    var svc = SERVICES[svcKey];
+    var btn = document.createElement('div');
+    btn.className = 'svc-btn';
+    btn.id = 'svc-' + svcKey;
+    btn.onclick = function() { selectService(svcKey); };
+    var icon = document.createElement('span');
+    icon.className = 'svc-icon';
+    icon.innerHTML = svc.icon;
+    var name = document.createElement('span');
+    name.className = 'svc-name';
+    name.textContent = svc.label;
+    btn.appendChild(icon);
+    btn.appendChild(name);
+    grid.appendChild(btn);
+  });
+}
+
+function selectService(svcKey) {
+  activeSvc = svcKey;
+  document.querySelectorAll('.svc-btn').forEach(function(b) { b.classList.remove('active'); });
+  var btn = document.getElementById('svc-' + svcKey);
+  if (btn) btn.classList.add('active');
+
+  var svc = SERVICES[svcKey];
+  var sel = document.getElementById('subcmdSelect');
+  sel.innerHTML = '';
+  var def = document.createElement('option');
+  def.value = '';
+  def.textContent = '-- Select subcommand --';
+  sel.appendChild(def);
+
+  Object.keys(svc.cmds).forEach(function(cmdKey) {
+    var opt = document.createElement('option');
+    opt.value = cmdKey;
+    opt.textContent = cmdKey + ' — ' + svc.cmds[cmdKey].desc;
+    sel.appendChild(opt);
+  });
+
+  document.getElementById('flagsSection').style.display = 'none';
+  document.getElementById('flagsGrid').innerHTML = '';
+  setPlaceholder();
+}
+
+function onSubcmdChange() {
+  var svcKey = activeSvc;
+  if (!svcKey) return;
+  var cmdKey = document.getElementById('subcmdSelect').value;
+  if (!cmdKey) {
+    document.getElementById('flagsSection').style.display = 'none';
+    setPlaceholder();
+    return;
+  }
+
+  var cmd = SERVICES[svcKey].cmds[cmdKey];
+  var flagsGrid = document.getElementById('flagsGrid');
+  flagsGrid.innerHTML = '';
+
+  if (cmd.flags.length === 0) {
+    document.getElementById('flagsSection').style.display = 'none';
+  } else {
+    document.getElementById('flagsSection').style.display = 'block';
+    cmd.flags.forEach(function(flag) {
+      if (flag.isFlag) {
+        var item = document.createElement('div');
+        item.className = 'flag-item';
+        var lbl = document.createElement('label');
+        lbl.className = 'flag-label';
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = 'flag-' + flag.name.replace(/[^a-z0-9]/gi, '_');
+        cb.style.accentColor = 'var(--aws)';
+        cb.style.marginRight = '6px';
+        var txt = document.createTextNode(flag.label);
+        var span = document.createElement('span');
+        span.className = 'flag-optional';
+        span.textContent = 'flag';
+        lbl.appendChild(cb);
+        lbl.appendChild(txt);
+        lbl.appendChild(span);
+        item.appendChild(lbl);
+        flagsGrid.appendChild(item);
+      } else {
+        var item2 = document.createElement('div');
+        item2.className = 'flag-item';
+        var lbl2 = document.createElement('label');
+        lbl2.className = 'flag-label';
+        lbl2.textContent = flag.label + ' ';
+        var badge = document.createElement('span');
+        badge.className = flag.required ? 'flag-required' : 'flag-optional';
+        badge.textContent = flag.required ? 'required' : 'optional';
+        lbl2.appendChild(badge);
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'flag-input';
+        inp.id = 'flag-' + flag.name.replace(/[^a-z0-9]/gi, '_');
+        inp.placeholder = flag.placeholder;
+        item2.appendChild(lbl2);
+        item2.appendChild(inp);
+        flagsGrid.appendChild(item2);
+      }
+    });
+  }
+
+  buildCommand();
+}
+
+function setPlaceholder() {
+  document.getElementById('cmdOutput').innerHTML = '<span class="cmd-placeholder">Select a service and subcommand to build your AWS CLI command...</span>';
+  document.getElementById('cmdNote').textContent = '';
+}
+
+function buildCommand() {
+  var svcKey = activeSvc;
+  if (!svcKey) return;
+  var cmdKey = document.getElementById('subcmdSelect').value;
+  if (!cmdKey) { setPlaceholder(); return; }
+
+  var svc = SERVICES[svcKey];
+  var cmd = svc.cmds[cmdKey];
+
+  var parts = ['aws'];
+
+  // S3 high-level vs s3api
+  if (svcKey === 's3') {
+    parts.push('s3');
+  } else if (svcKey === 'cloudformation') {
+    parts.push('cloudformation');
+  } else {
+    parts.push(svcKey);
+  }
+
+  // Special case for s3 ls / cp / sync / rm / mb
+  if (svcKey === 's3' && ['ls','cp','sync','rm','mb'].indexOf(cmdKey) !== -1) {
+    parts.push(cmdKey);
+  } else {
+    parts.push(cmdKey);
+  }
+
+  // Positional args (no leading --)
+  var positionals = cmd.flags.filter(function(f) { return !f.name.startsWith('--') && !f.isFlag; });
+  positionals.forEach(function(flag) {
+    var inp = document.getElementById('flag-' + flag.name.replace(/[^a-z0-9]/gi, '_'));
+    if (inp && inp.value.trim()) parts.push(inp.value.trim());
+  });
+
+  // Named flags
+  var named = cmd.flags.filter(function(f) { return f.name.startsWith('--') && !f.isFlag; });
+  named.forEach(function(flag) {
+    var id = 'flag-' + flag.name.replace(/[^a-z0-9]/gi, '_');
+    var inp = document.getElementById(id);
+    if (inp && inp.value.trim()) {
+      parts.push(flag.name);
+      parts.push(inp.value.trim());
+    }
+  });
+
+  // Boolean flags (checkboxes)
+  var boolFlags = cmd.flags.filter(function(f) { return f.isFlag; });
+  boolFlags.forEach(function(flag) {
+    var id = 'flag-' + flag.name.replace(/[^a-z0-9]/gi, '_');
+    var cb = document.getElementById(id);
+    if (cb && cb.checked) parts.push(flag.name);
+  });
+
+  var finalCmd = parts.join(' ');
+  document.getElementById('cmdOutput').textContent = finalCmd;
+  document.getElementById('cmdNote').textContent = '// ' + cmd.desc;
+
+  // Add to history
+  addToHistory(finalCmd, svcKey.toUpperCase());
+}
+
+function addToHistory(cmd, svc) {
+  history.unshift({ cmd: cmd, svc: svc });
+  if (history.length > 10) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  var list = document.getElementById('historyList');
+  list.innerHTML = '';
+  document.getElementById('histCount').textContent = history.length + ' command' + (history.length !== 1 ? 's' : '');
+
+  if (!history.length) {
+    list.innerHTML = '<div style="padding:12px 16px;font-family:var(--mono);font-size:11px;color:var(--text-dim);">Built commands will appear here.</div>';
+    return;
+  }
+
+  history.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'hist-item';
+    row.onclick = function() {
+      document.getElementById('cmdOutput').textContent = item.cmd;
+    };
+    var svcEl = document.createElement('span');
+    svcEl.className = 'hist-svc';
+    svcEl.textContent = item.svc;
+    var cmdEl = document.createElement('span');
+    cmdEl.className = 'hist-cmd';
+    cmdEl.textContent = item.cmd;
+    row.appendChild(svcEl);
+    row.appendChild(cmdEl);
+    list.appendChild(row);
+  });
+}
+
+function copyCommand() {
+  var text = document.getElementById('cmdOutput').textContent;
+  if (!text || text.indexOf('Select a service') !== -1) return;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(showCopy);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopy();
+  }
+}
+
+function showCopy() {
+  var fb = document.getElementById('copyFb');
+  fb.style.display = 'inline';
+  setTimeout(function() { fb.style.display = 'none'; }, 2000);
+}
+
+function loadExample() {
+  selectService('s3');
+  setTimeout(function() {
+    document.getElementById('subcmdSelect').value = 'cp';
+    onSubcmdChange();
+    setTimeout(function() {
+      var srcInp = document.getElementById('flag-source');
+      var dstInp = document.getElementById('flag-dest');
+      if (srcInp) srcInp.value = './dist/index.html';
+      if (dstInp) dstInp.value = 's3://my-website-bucket/';
+      buildCommand();
+    }, 50);
+  }, 50);
+}
+
+function resetBuilder() {
+  activeSvc = null;
+  document.querySelectorAll('.svc-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('subcmdSelect').innerHTML = '<option value="">-- Select a service first --</option>';
+  document.getElementById('flagsSection').style.display = 'none';
+  document.getElementById('flagsGrid').innerHTML = '';
+  setPlaceholder();
+}
+
+function toggleFaq(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+
+init();
+</script>
 
 </body>
 </html>
