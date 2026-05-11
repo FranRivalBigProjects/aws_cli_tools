@@ -7,16 +7,16 @@
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
 <meta name="robots" content="index, follow">
 
-<title>AWS CLI Builder – Free AWS Command Generator &amp; Syntax Builder</title>
+<title>AWS CLI Command Generator – Free Online Builder Tool</title>
 
-<meta name="description" content="Free AWS CLI builder. Select a service, subcommand and flags to generate ready-to-use AWS CLI commands instantly. Covers S3, EC2, IAM, Lambda, RDS, ECS, and more. No login required.">
+<meta name="description" content="Free AWS CLI command generator. Build S3, EC2, IAM, Lambda, RDS commands visually—no syntax memorization needed. Generate ready-to-run AWS CLI commands instantly online.">
 
-<meta name="keywords" content="aws cli builder, aws cli command generator, aws cli syntax builder, aws command line tools, aws cli tools, aws cli generator free, build aws cli command, aws cli helper, aws command generator">
+<meta name="keywords" content="aws cli command generator, aws cli builder, generate aws cli commands, aws cli syntax generator, free aws cli tool, aws command generator online, aws cli command builder, build aws cli commands">
 
 <link rel="canonical" href="https://franrivalbigprojects.github.io/aws-cli-tools/">
 
-<meta property="og:title" content="AWS CLI Builder – Free AWS Command Generator">
-<meta property="og:description" content="Build AWS CLI commands step by step. Select service, subcommand, and flags to generate ready-to-run commands. Free, no login.">
+<meta property="og:title" content="AWS CLI Command Generator – Free Online Builder">
+<meta property="og:description" content="Generate AWS CLI commands for S3, EC2, IAM, Lambda, RDS instantly. Visual builder, no login required.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -558,6 +558,9 @@ hr.divider { border: none; border-top: 1px solid var(--border2); margin: 48px 0;
 p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 10px; }
 p strong { color: var(--text); }
 
+h2 { font-size: 18px; font-weight: 600; color: #fff; margin: 24px 0 12px; }
+h3 { font-size: 15px; font-weight: 500; color: #fff; margin: 16px 0 8px; }
+
 code {
   font-family: var(--mono);
   font-size: 12px;
@@ -690,6 +693,31 @@ code {
 
 .tag:hover { color: var(--aws); border-color: rgba(255,153,0,0.3); }
 
+/* TUTORIAL BLOCKS */
+.tutorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.tutorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s;
+}
+
+.tutorial-card:hover { border-color: rgba(255,153,0,0.3); }
+
+.tut-icon { font-size: 20px; }
+.tut-title { font-weight: 600; color: #fff; font-size: 14px; }
+.tut-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
 footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
 
 .footer-inner {
@@ -711,19 +739,25 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   .service-grid { grid-template-columns: repeat(4, 1fr); }
   .flags-grid { grid-template-columns: 1fr; }
   .ct-row { grid-template-columns: 100px 1fr 1fr; font-size: 10px; }
+  .tutorial-grid { grid-template-columns: 1fr; }
 }
 </style>
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "AWS CLI Builder",
+  "@type": "WebApplication",
+  "name": "AWS CLI Command Generator",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Web",
+  "url": "https://franrivalbigprojects.github.io/aws-cli-tools/",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Free AWS CLI builder. Select AWS service, subcommand, and flags to generate ready-to-use AWS CLI commands instantly. Covers S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation, and more. No install or login required.",
-  "featureList": "AWS CLI command generation, S3 commands, EC2 commands, IAM commands, Lambda commands, RDS commands, ECS commands, CloudFormation commands, command history, copy to clipboard"
+  "description": "Free, open-source AWS CLI command generator. Build ready-to-use commands for S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation visually. No install or login required.",
+  "featureList": "AWS CLI command generation, S3 commands, EC2 commands, IAM commands, Lambda commands, RDS commands, ECS commands, CloudFormation commands, command history, copy to clipboard, visual builder",
+  "author": {
+    "@type": "Person",
+    "@context": "https://schema.org"
+  }
 }
 </script>
 
@@ -734,26 +768,42 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is an AWS CLI builder?",
+      "name": "What is an AWS CLI command generator?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An AWS CLI builder is a tool that helps you construct AWS CLI commands by selecting the service, subcommand, and required flags through a visual interface instead of memorizing command syntax. It generates the correct aws command string ready to paste into your terminal."
+        "text": "An AWS CLI command generator is a visual tool that helps you build AWS CLI commands by selecting the service (S3, EC2, IAM, Lambda, etc.), subcommand, and flags through an interactive interface. Instead of memorizing command syntax, you select options and the tool generates ready-to-run commands you can copy and paste into your terminal."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I use the AWS CLI?",
+      "name": "How do I use this AWS CLI command generator?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Install the AWS CLI with pip install awscli or download from aws.amazon.com/cli. Configure with aws configure (enter Access Key ID, Secret Access Key, region, output format). Then run commands like aws s3 ls, aws ec2 describe-instances, or aws iam list-users. Use --profile to switch between named profiles and --region to override the default region per command."
+        "text": "Simply select an AWS service from the left panel (S3, EC2, IAM, Lambda, etc.), choose a subcommand from the dropdown, fill in any required flags and parameters, then click 'Build Command.' The tool instantly generates your ready-to-run AWS CLI command."
       }
     },
     {
       "@type": "Question",
-      "name": "What AWS CLI tools are available?",
+      "name": "Do I need AWS credentials to use this command generator?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Key AWS CLI tools: AWS CLI v2 (official command-line interface), AWS Shell (autocomplete shell for AWS CLI), aws-vault (securely store and access AWS credentials), Steampipe (SQL queries over AWS resources), awslogs (stream CloudWatch logs), and this builder for generating commands visually."
+        "text": "No. This command generator is a syntax builder only—it generates command syntax without needing your AWS credentials. You only need credentials when running the generated command in your terminal. This makes it perfect for learning command syntax, testing in interviews, or preparing commands before deployment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What AWS services does this generator support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This generator supports S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation, and STS. Each service includes the most common subcommands and flags. More services can be added—the generator is open source."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the generated commands to my terminal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Click the 'Copy' button below the generated command to copy it to your clipboard. Then paste it directly into your terminal. The command is ready to run after you provide any required values (like file paths or resource names)."
       }
     }
   ]
@@ -767,7 +817,7 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 <header>
   <div class="header-inner">
     <span class="logo-pill">CLI</span>
-    <span class="logo-text"><strong>aws-cli</strong>-builder</span>
+    <span class="logo-text"><strong>command</strong>-gen</span>
   </div>
 </header>
 
@@ -775,16 +825,16 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <section class="hero">
     <p class="hero-eyebrow">// Free AWS Developer Tool</p>
-    <h1><em>AWS CLI Builder</em> &mdash;<br>Command Generator &amp; Syntax Tool</h1>
+    <h1><em>AWS CLI Command Generator</em><br>Visual Builder for AWS CLI Syntax</h1>
     <p class="hero-sub">
-      Select a <strong>service, subcommand, and flags</strong> to build ready-to-run AWS CLI commands instantly. No AWS account needed — paste into your terminal.
+      Stop memorizing AWS CLI syntax. Select a <strong>service, subcommand, and flags</strong> to generate ready-to-run commands instantly. <strong>No credentials needed</strong> — perfect for learning, demos, and interviews.
     </p>
     <div class="pill-row">
       <span class="pill pill-aws">S3 · EC2 · IAM</span>
       <span class="pill pill-aws">Lambda · RDS · ECS</span>
-      <span class="pill pill-dim">Command History</span>
-      <span class="pill pill-dim">Copy to Clipboard</span>
-      <span class="pill pill-dim">Free · No login</span>
+      <span class="pill pill-dim">Visual Builder</span>
+      <span class="pill pill-dim">No Login</span>
+      <span class="pill pill-dim">Free & Open Source</span>
     </div>
   </section>
 
@@ -802,48 +852,50 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       </div>
     </div>
 
-
 <div class="builder-body">
 
   <!-- Service selector -->
+
   <div class="builder-left">
     <div class="panel-head">// Select AWS Service</div>
     <div class="service-grid" id="serviceGrid"></div>
   </div>
 
   <!-- Command builder -->
+
   <div class="builder-right">
 
-    <div class="cmd-section">
-      <div class="cmd-section-label">Subcommand</div>
-      <select class="cmd-select" id="subcmdSelect" onchange="onSubcmdChange()">
-        <option value="">-- Select a service first --</option>
-      </select>
-    </div>
 
-    <div class="cmd-section" id="flagsSection" style="display:none;">
-      <div class="cmd-section-label">Flags</div>
-      <div class="flags-grid" id="flagsGrid"></div>
-    </div>
+<div class="cmd-section">
+  <div class="cmd-section-label">Subcommand</div>
+  <select class="cmd-select" id="subcmdSelect" onchange="onSubcmdChange()">
+    <option value="">-- Select a service first --</option>
+  </select>
+</div>
 
-    <div class="output-section">
-      <div class="panel-head">// Generated Command</div>
-      <div class="output-wrap">
-        <div class="cmd-output" id="cmdOutput">
-          <span class="cmd-placeholder">Select a service and subcommand to build your AWS CLI command...</span>
-        </div>
-        <div class="cmd-note" id="cmdNote"></div>
-      </div>
-      <div class="output-footer">
-        <button class="btn-build" onclick="buildCommand()">Build Command</button>
-        <button class="copy-btn" onclick="copyCommand()">Copy</button>
-        <span id="copyFb" style="font-family:var(--mono);font-size:11px;color:var(--green);display:none;">Copied!</span>
-      </div>
-    </div>
+<div class="cmd-section" id="flagsSection" style="display:none;">
+  <div class="cmd-section-label">Flags</div>
+  <div class="flags-grid" id="flagsGrid"></div>
+</div>
 
+<div class="output-section">
+  <div class="panel-head">// Generated Command</div>
+  <div class="output-wrap">
+    <div class="cmd-output" id="cmdOutput">
+      <span class="cmd-placeholder">Select a service and subcommand to build your AWS CLI command...</span>
+    </div>
+    <div class="cmd-note" id="cmdNote"></div>
+  </div>
+  <div class="output-footer">
+    <button class="btn-build" onclick="buildCommand()">Build Command</button>
+    <button class="copy-btn" onclick="copyCommand()">Copy</button>
+    <span id="copyFb" style="font-family:var(--mono);font-size:11px;color:var(--green);display:none;">Copied!</span>
   </div>
 </div>
 
+
+  </div>
+</div>
 
   </div>
 
@@ -861,11 +913,69 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <hr class="divider">
 
+  <!-- WHY USE THIS GENERATOR -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Why Use This Generator?</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="dense-block">
+      <p><strong>Stop memorizing AWS CLI syntax.</strong> AWS documentation is vast and scattered. Instead of hunting through 10 pages of docs for one flag, select it visually.</p>
+      <p><strong>No AWS credentials required.</strong> This tool only generates syntax—you don't need credentials to learn or test commands. Perfect for interviews, demos, and training.</p>
+      <p><strong>Instant command generation.</strong> Select service → subcommand → flags → copy. No setup, no install, no configuration needed.</p>
+      <p><strong>Learn while building.</strong> The tool shows descriptions for each command. Understand what each flag does before running it in production.</p>
+    </div>
+  </section>
+
+  <!-- QUICK START TUTORIALS -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Quick Start: Common Tasks</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="tutorial-grid">
+      <div class="tutorial-card">
+        <div class="tut-icon">📦</div>
+        <div class="tut-title">Upload a File to S3</div>
+        <div class="tut-desc">Use the <code>S3 → cp</code> command to copy a file from your local machine to an S3 bucket. Specify source and destination paths.</div>
+      </div>
+      <div class="tutorial-card">
+        <div class="tut-icon">⚙️</div>
+        <div class="tut-title">List Running EC2 Instances</div>
+        <div class="tut-desc">Use <code>EC2 → describe-instances</code> to list all running instances. Add filters to narrow down by region, state, or tags.</div>
+      </div>
+      <div class="tutorial-card">
+        <div class="tut-icon">👤</div>
+        <div class="tut-title">Create an IAM User</div>
+        <div class="tut-desc">Use <code>IAM → create-user</code> to add a new IAM user. Optionally assign a path and tags for organization.</div>
+      </div>
+      <div class="tutorial-card">
+        <div class="tut-icon">⚡</div>
+        <div class="tut-title">Invoke a Lambda Function</div>
+        <div class="tut-desc">Use <code>Lambda → invoke</code> to run a function. Provide function name and optional JSON payload as input.</div>
+      </div>
+      <div class="tutorial-card">
+        <div class="tut-icon">🗄️</div>
+        <div class="tut-title">Start/Stop RDS Instance</div>
+        <div class="tut-desc">Use <code>RDS → start-db-instance</code> or <code>stop-db-instance</code> to manage database instances without the AWS Console.</div>
+      </div>
+      <div class="tutorial-card">
+        <div class="tut-icon">🐳</div>
+        <div class="tut-title">Deploy with ECS</div>
+        <div class="tut-desc">Use <code>ECS → update-service</code> to change desired task count or force a new deployment of your containerized service.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- CHEAT SHEET -->
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">AWS CLI Cheat Sheet</span>
+      <span class="sec-label">AWS CLI Command Cheat Sheet</span>
       <span class="sec-rule"></span>
     </div>
     <div class="cheat-table">
@@ -887,24 +997,115 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
     </div>
   </section>
 
-  <!-- QUICK TIPS -->
+  <!-- ADVANCED TECHNIQUES -->
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">AWS CLI Tips</span>
+      <span class="sec-label">Advanced AWS CLI Techniques</span>
       <span class="sec-rule"></span>
     </div>
-    <div class="dense-block">
-      <p><strong>Use --output to change the response format</strong><br>
-      <code>--output json</code> (default), <code>--output table</code> for human-readable output, <code>--output text</code> for piping to shell scripts. Add <code>--query</code> with JMESPath to filter output: <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --output text</code></p>
-      <p><strong>Use --profile to switch between AWS accounts</strong><br>
-      Configure named profiles with <code>aws configure --profile myprofile</code>. Use with <code>aws s3 ls --profile myprofile</code>. Set a default profile with the <code>AWS_PROFILE</code> environment variable. Use <code>aws sts get-caller-identity</code> to verify which account and role you are currently using.</p>
-      <p><strong>Use --dry-run to test destructive commands</strong><br>
-      EC2 commands support <code>--dry-run</code> to validate permissions without executing. <code>aws ec2 terminate-instances --instance-ids i-xxx --dry-run</code> returns a DryRunOperation error if the command would succeed, or an UnauthorizedOperation error if permissions are missing.</p>
-      <p><strong>Paginate large result sets automatically</strong><br>
-      Add <code>--no-paginate</code> to get all results at once. Or use <code>--page-size</code> and <code>--max-items</code> for manual pagination. The CLI v2 paginates automatically by default for commands like <code>aws s3api list-objects</code>. Use <code>--starting-token</code> with the <code>NextToken</code> value for manual page navigation.</p>
-    </div>
+
+
+<h2>Filtering Output with --query</h2>
+<p>The <code>--query</code> flag uses JMESPath syntax to filter AWS API responses. Instead of getting all data, extract only what you need:</p>
+<div class="dense-block">
+  <p><strong>Example: List only EC2 instance IDs and states</strong><br>
+  <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name]' --output table</code></p>
+  <p><strong>Example: List all S3 bucket names</strong><br>
+  <code>aws s3api list-buckets --query 'Buckets[*].Name' --output text</code></p>
+  <p><strong>Why use --query?</strong> Reduces output noise, enables shell piping, makes automation easier. The output goes directly into scripts or further processing.</p>
+</div>
+
+<h2>Using Named Profiles to Switch AWS Accounts</h2>
+<p>Store multiple AWS credentials and switch between accounts without reconfiguration:</p>
+<div class="dense-block">
+  <p><strong>Configure a named profile</strong><br>
+  <code>aws configure --profile myprofile</code><br>
+  This creates a profile named "myprofile" with separate credentials and region settings.</p>
+  <p><strong>Use the profile in commands</strong><br>
+  <code>aws s3 ls --profile myprofile</code><br>
+  Any AWS CLI command works with <code>--profile profilename</code>.</p>
+  <p><strong>Set a default profile</strong><br>
+  <code>export AWS_PROFILE=myprofile</code><br>
+  Now all commands use "myprofile" by default without typing <code>--profile</code> each time.</p>
+</div>
+
+<h2>Dry-Run to Test Permissions</h2>
+<p>Many EC2 commands support <code>--dry-run</code> to validate that you have permissions before actually running the command:</p>
+<div class="dense-block">
+  <p><strong>Example: Test if you can terminate instances</strong><br>
+  <code>aws ec2 terminate-instances --instance-ids i-xxx --dry-run</code><br>
+  If it succeeds, you have permission. If it fails with UnauthorizedOperation, you need more IAM permissions.</p>
+  <p><strong>Why use dry-run?</strong> Prevents accidental resource deletion. Test destructive operations safely before deploying them in production.</p>
+</div>
+
+<h2>Output Formatting: JSON, Table, Text</h2>
+<p>Control how AWS API responses appear:</p>
+<div class="dense-block">
+  <p><strong>JSON format (default)</strong><br>
+  <code>aws ec2 describe-instances --output json</code><br>
+  Full structured output for parsing in scripts.</p>
+  <p><strong>Table format (human-readable)</strong><br>
+  <code>aws ec2 describe-instances --output table</code><br>
+  Pretty-printed output perfect for reading in the terminal.</p>
+  <p><strong>Text format (for piping)</strong><br>
+  <code>aws s3api list-buckets --output text</code><br>
+  Tab-separated values, easy to pipe to grep, awk, cut, or other Unix tools.</p>
+</div>
+
+<h2>Pagination for Large Result Sets</h2>
+<p>Commands that return many results are paginated by default. Control pagination with flags:</p>
+<div class="dense-block">
+  <p><strong>Get all results at once</strong><br>
+  <code>aws s3api list-objects-v2 --bucket mybucket --no-paginate</code></p>
+  <p><strong>Control page size</strong><br>
+  <code>aws ec2 describe-instances --page-size 10 --max-items 50</code><br>
+  Fetch 50 items total, requesting 10 per page.</p>
+  <p><strong>Manual pagination</strong><br>
+  Use <code>--starting-token</code> with the NextToken from previous results to fetch the next page.</p>
+</div>
+
+
   </section>
+
+  <!-- TROUBLESHOOTING -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Troubleshooting AWS CLI Issues</span>
+      <span class="sec-rule"></span>
+    </div>
+
+
+<h2>Common AWS CLI Errors</h2>
+<div class="dense-block">
+  <p><strong>NoCredentialsError or Unable to locate credentials</strong><br>
+  You haven't configured AWS credentials. Run <code>aws configure</code> to set Access Key ID, Secret Access Key, region, and output format. Credentials are stored in <code>~/.aws/credentials</code>.</p>
+  <p><strong>UnauthorizedOperation</strong><br>
+  Your AWS account or IAM user doesn't have permission for this action. Check your IAM policy. Use <code>--dry-run</code> first to test permissions.</p>
+  <p><strong>InvalidParameterValue</strong><br>
+  A flag value is invalid. Check the command syntax. This generator helps by showing required vs. optional fields.</p>
+  <p><strong>An error occurred (InvalidBucket.NotFound)</strong><br>
+  The S3 bucket doesn't exist or you don't have access. Verify bucket name and region.</p>
+</div>
+
+<h2>Verify Your AWS Configuration</h2>
+<p>Before running commands, verify which AWS account and role you're using:</p>
+<div class="dense-block">
+  <p><strong>Check current identity</strong><br>
+  <code>aws sts get-caller-identity</code><br>
+  Returns Account ID, User ARN, and UserId. Confirms you're logged in and using the right account.</p>
+  <p><strong>List configured profiles</strong><br>
+  <code>cat ~/.aws/credentials</code><br>
+  Shows all stored AWS credentials and profiles.</p>
+  <p><strong>Check region setting</strong><br>
+  <code>echo $AWS_DEFAULT_REGION</code><br>
+  Shows the default region. Override with <code>--region us-east-1</code> in any command.</p>
+</div>
+
+  </section>
+
+  <hr class="divider">
 
   <!-- FAQ -->
 
@@ -916,19 +1117,35 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What is the AWS CLI?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">The AWS Command Line Interface (AWS CLI) is an open source tool that enables you to interact with AWS services using commands in your terminal. AWS CLI v2 is the current version, available for Windows, macOS, and Linux. Configure it with <code>aws configure</code> and use commands like <code>aws s3 ls</code>, <code>aws ec2 describe-instances</code>, or <code>aws lambda list-functions</code>.</div>
+        <div class="faq-a">The AWS Command Line Interface (AWS CLI) is an open source tool from Amazon that lets you interact with AWS services using commands in your terminal. AWS CLI v2 is the current version. Install it from aws.amazon.com/cli or with <code>pip install awscli</code>. Then run <code>aws configure</code> to set up credentials. After that, you can use commands like <code>aws s3 ls</code>, <code>aws ec2 describe-instances</code>, or <code>aws lambda list-functions</code> to manage AWS resources.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I install and configure the AWS CLI?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Download from aws.amazon.com/cli or install with <code>pip install awscli</code>. Run <code>aws configure</code> and enter your Access Key ID, Secret Access Key, default region (e.g. us-east-1), and output format (json). Credentials are stored in <code>~/.aws/credentials</code>. Use <code>aws sts get-caller-identity</code> to verify the configuration worked.</div>
+        <div class="faq-a"><strong>Install:</strong> Download from aws.amazon.com/cli or run <code>pip install awscli</code>. <strong>Configure:</strong> Run <code>aws configure</code> and enter your AWS Access Key ID, Secret Access Key, default region (e.g., us-east-1), and output format (json is default). Your credentials are stored securely in <code>~/.aws/credentials</code>. <strong>Verify:</strong> Run <code>aws sts get-caller-identity</code> to confirm the configuration worked.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What AWS CLI tools and helpers are available?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Popular AWS CLI tools: <strong>aws-shell</strong> — interactive CLI with autocomplete. <strong>aws-vault</strong> — secure credential storage. <strong>awslogs</strong> — stream CloudWatch logs. <strong>Steampipe</strong> — SQL queries over AWS resources. <strong>cfn-lint</strong> — CloudFormation template linter. This builder generates commands visually without memorizing syntax.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">What is this AWS CLI command generator?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">This is a free web tool that helps you build AWS CLI commands visually. Instead of memorizing command syntax, you select a service (S3, EC2, IAM, Lambda, etc.), choose a subcommand, and fill in flags. The tool generates your ready-to-run command instantly. You can copy it and paste it into your terminal. No AWS credentials or account setup required—it's pure syntax generation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do I need AWS credentials to use this command generator?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">No. This tool is a syntax builder only. It generates AWS CLI command strings without connecting to AWS. You only need credentials when you run the generated command in your terminal. This makes the generator perfect for learning syntax, testing in interviews, or preparing commands before you have access to production AWS accounts.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What AWS services are supported?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">This generator currently supports S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation, and STS. Each includes the most common subcommands and flags. The tool is open source—more services can be added. If you need a service that isn't listed, you can still use the AWS official documentation or this tool for the services that are supported.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I use --query to filter AWS CLI output?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a"><code>--query</code> uses JMESPath syntax. Examples: <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name]' --output table</code> lists instance IDs and states. <code>aws s3api list-buckets --query 'Buckets[*].Name' --output text</code> lists bucket names. Use <code>--output text</code> for shell script piping.</div>
+        <div class="faq-a"><code>--query</code> uses JMESPath syntax to extract specific fields from AWS API responses. Example: <code>aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name]' --output table</code> lists only instance IDs and states. Another example: <code>aws s3api list-buckets --query 'Buckets[*].Name' --output text</code> lists only bucket names. Use <code>--output text</code> or <code>--output json</code> to control the final format for piping or automation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I use this on my phone or tablet?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Yes. This tool is mobile-responsive and works on any device with a modern web browser. You can generate AWS CLI commands on your phone and email or AirDrop them to a computer, or copy the command and paste it into a remote SSH session from your mobile device.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is this tool open source?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Yes. The source code is available on GitHub at github.com/FranRival/aws-cli-tools. You can fork it, modify it, add more AWS services, or deploy it to your own server. Contributions are welcome.</div>
       </div>
     </div>
   </section>
@@ -937,7 +1154,7 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">More Tools</span>
+      <span class="sec-label">Related Tools</span>
       <span class="sec-rule"></span>
     </div>
     <div class="other-tools">
@@ -953,17 +1170,18 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   </section>
 
   <div class="tag-cloud">
-    <span class="tag">aws cli builder</span>
     <span class="tag">aws cli command generator</span>
-    <span class="tag">aws cli syntax builder</span>
-    <span class="tag">aws cli tools</span>
-    <span class="tag">aws command line tools</span>
-    <span class="tag">build aws cli command</span>
-    <span class="tag">aws cli helper online</span>
-    <span class="tag">aws s3 cli commands</span>
-    <span class="tag">aws ec2 cli commands</span>
-    <span class="tag">aws iam cli commands</span>
-    <span class="tag">aws lambda cli commands</span>
+    <span class="tag">aws cli builder</span>
+    <span class="tag">generate aws cli commands</span>
+    <span class="tag">aws cli syntax generator</span>
+    <span class="tag">free aws cli tool</span>
+    <span class="tag">aws command generator online</span>
+    <span class="tag">aws cli command builder</span>
+    <span class="tag">build aws cli commands</span>
+    <span class="tag">aws s3 cli generator</span>
+    <span class="tag">aws ec2 cli generator</span>
+    <span class="tag">aws iam cli generator</span>
+    <span class="tag">aws lambda cli generator</span>
     <span class="tag">aws cli --query examples</span>
   </div>
 
@@ -971,8 +1189,8 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
 <footer>
   <div class="footer-inner">
-    <p>aws-cli-builder &middot; command generator &middot; free &middot; no login</p>
-    <p>s3 &middot; ec2 &middot; iam &middot; lambda &middot; rds &middot; ecs &middot; cloudformation</p>
+    <p>aws-cli-command-generator &middot; free &middot; no login &middot; open source</p>
+    <p>s3 &middot; ec2 &middot; iam &middot; lambda &middot; rds &middot; ecs &middot; cloudformation &middot; sts</p>
   </div>
 </footer>
 
