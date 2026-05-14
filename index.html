@@ -7,16 +7,16 @@
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
 <meta name="robots" content="index, follow">
 
-<title>AWS CLI Command Generator – Free Online Builder Tool</title>
+<title>AWS CLI Command Generator – Free Syntax Builder for S3, EC2, IAM, Lambda</title>
 
-<meta name="description" content="Free AWS CLI command generator. Build S3, EC2, IAM, Lambda, RDS commands visually—no syntax memorization needed. Generate ready-to-run AWS CLI commands instantly online.">
+<meta name="description" content="Free AWS CLI command generator for S3, EC2, IAM, Lambda, RDS & more. Build CLI commands visually without memorizing syntax. Copy-paste ready-to-run commands instantly.">
 
 <meta name="keywords" content="aws cli command generator, aws cli builder, generate aws cli commands, aws cli syntax generator, free aws cli tool, aws command generator online, aws cli command builder, build aws cli commands">
 
 <link rel="canonical" href="https://franrivalbigprojects.github.io/aws-cli-tools/">
 
-<meta property="og:title" content="AWS CLI Command Generator – Free Online Builder">
-<meta property="og:description" content="Generate AWS CLI commands for S3, EC2, IAM, Lambda, RDS instantly. Visual builder, no login required.">
+<meta property="og:title" content="AWS CLI Command Generator – Free Syntax Builder">
+<meta property="og:description" content="Generate AWS CLI commands for S3, EC2, IAM, Lambda, RDS visually. No memorization, no login required.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -825,14 +825,14 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <section class="hero">
     <p class="hero-eyebrow">// Free AWS Developer Tool</p>
-    <h1><em>AWS CLI Command Generator</em><br>Visual Builder for AWS CLI Syntax</h1>
+    <h1>AWS CLI Command Generator<br><em>Generate Commands Without Memorizing Syntax</em></h1>
     <p class="hero-sub">
-      Stop memorizing AWS CLI syntax. Select a <strong>service, subcommand, and flags</strong> to generate ready-to-run commands instantly. <strong>No credentials needed</strong> — perfect for learning, demos, and interviews.
+      Stop hunting AWS documentation for syntax. Build <strong>S3, EC2, IAM, Lambda, RDS, ECS, and CloudFormation commands</strong> visually—select service, subcommand, and flags to get ready-to-run commands instantly. <strong>Copy and paste directly into your terminal</strong>. No AWS credentials required.
     </p>
     <div class="pill-row">
-      <span class="pill pill-aws">S3 · EC2 · IAM</span>
-      <span class="pill pill-aws">Lambda · RDS · ECS</span>
-      <span class="pill pill-dim">Visual Builder</span>
+      <span class="pill pill-aws">S3 · EC2 · IAM · Lambda</span>
+      <span class="pill pill-aws">RDS · ECS · CloudFormation</span>
+      <span class="pill pill-dim">Visual Generator</span>
       <span class="pill pill-dim">No Login</span>
       <span class="pill pill-dim">Free & Open Source</span>
     </div>
@@ -865,7 +865,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <div class="builder-right">
 
-
 <div class="cmd-section">
   <div class="cmd-section-label">Subcommand</div>
   <select class="cmd-select" id="subcmdSelect" onchange="onSubcmdChange()">
@@ -893,7 +892,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   </div>
 </div>
 
-
   </div>
 </div>
 
@@ -917,14 +915,16 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">Why Use This Generator?</span>
+      <span class="sec-label">Why Use AWS CLI Command Generator?</span>
       <span class="sec-rule"></span>
     </div>
+    <p style="margin-bottom: 16px;"><strong>AWS CLI command syntax is complex and spread across hundreds of pages of documentation.</strong> Developers waste time memorizing flags, looking up parameter names, and cross-referencing multiple docs just to run a single command. This generator solves that problem.</p>
     <div class="dense-block">
-      <p><strong>Stop memorizing AWS CLI syntax.</strong> AWS documentation is vast and scattered. Instead of hunting through 10 pages of docs for one flag, select it visually.</p>
-      <p><strong>No AWS credentials required.</strong> This tool only generates syntax—you don't need credentials to learn or test commands. Perfect for interviews, demos, and training.</p>
-      <p><strong>Instant command generation.</strong> Select service → subcommand → flags → copy. No setup, no install, no configuration needed.</p>
-      <p><strong>Learn while building.</strong> The tool shows descriptions for each command. Understand what each flag does before running it in production.</p>
+      <p><strong>Eliminate memorization.</strong> Instead of memorizing AWS CLI syntax for each service, select your service and subcommand visually. The tool builds the command for you—no manual typing of complex flags.</p>
+      <p><strong>No credentials required.</strong> This is a pure syntax builder. You generate the command structure here, then run it in your terminal with your actual AWS credentials. Perfect for learning, interviews, and testing before production.</p>
+      <p><strong>Copy-paste ready.</strong> Select options → click "Build Command" → click "Copy" → paste into your terminal. Four steps. That's it. No setup, no installation, no configuration.</p>
+      <p><strong>Learn as you build.</strong> Every command has a description. See what each flag does before running it. Understand the syntax while you generate commands, not after.</p>
+      <p><strong>Supports major AWS services.</strong> S3, EC2, IAM, Lambda, RDS, ECS, CloudFormation, and STS are all included with the most common subcommands and parameters.</p>
     </div>
   </section>
 
@@ -1005,7 +1005,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       <span class="sec-rule"></span>
     </div>
 
-
 <h2>Filtering Output with --query</h2>
 <p>The <code>--query</code> flag uses JMESPath syntax to filter AWS API responses. Instead of getting all data, extract only what you need:</p>
 <div class="dense-block">
@@ -1065,7 +1064,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   Use <code>--starting-token</code> with the NextToken from previous results to fetch the next page.</p>
 </div>
 
-
   </section>
 
   <!-- TROUBLESHOOTING -->
@@ -1075,7 +1073,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       <span class="sec-label">Troubleshooting AWS CLI Issues</span>
       <span class="sec-rule"></span>
     </div>
-
 
 <h2>Common AWS CLI Errors</h2>
 <div class="dense-block">
